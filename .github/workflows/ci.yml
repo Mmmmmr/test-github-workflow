@@ -6,14 +6,14 @@ on:
   push:
     branches: [main]
 
-# 开始任务
-jobs:
-  # 建立一个名为 build 的job
-  build:
-    # 在最新的乌班图环境进行工作
-    runs-on: ubuntu-latest
+# Add permissions configuration
+permissions:
+  contents: write
 
-    # 开始设置构建步骤
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v2
 
