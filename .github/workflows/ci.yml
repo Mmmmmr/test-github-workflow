@@ -4,7 +4,7 @@ name: CI
 # 监听 master上的push事件
 on:
   push:
-    branches: [ master ]
+    branches: [main]
 
 # 开始任务
 jobs:
@@ -27,8 +27,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          cache: 'pnpm'
+          node-version: "18"
+          cache: "pnpm"
 
       # 安装依赖并构建
       - name: Install and Build
