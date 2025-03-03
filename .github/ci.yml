@@ -1,0 +1,44 @@
+# 建立一个名为CI的工作流
+name: CI
+
+# 监听 master上的push事件
+on:
+  push:
+    branches: [ master ]
+
+# 开始任务
+jobs:
+  # 建立一个名为 build 的job
+  build:
+    # 在最新的乌班图环境进行工作
+    runs-on: ubuntu-latest
+
+    # 开始设置构建步骤
+    steps:
+      - uses: actions/checkout@v2
+
+      # 设置 pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      # 设置 Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      # 安装依赖并构建
+      - name: Install and Build
+        run: |
+          pnpm install
+          pnpm run build
+
+      # 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # 构建输出目录，根据你的项目配置可能需要修改
+          branch: gh-pages
